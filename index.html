@@ -854,7 +854,7 @@
         </div>
       </div>
 
-      <form action="forms/contact.php" method="post" role="form" class="php-email-form mt-4">
+      <form id="contact-form" action="index.html" class="php-email-form mt-4">
         <div class="form-row">
           <div class="col-md-6 form-group">
             <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
@@ -878,7 +878,7 @@
           <div class="error-message"></div>
           <div class="sent-message">Your message has been sent. Thank you!</div>
         </div>
-        <div class="text-center"><button type="submit">Send Message</button></div>
+        <div class="text-center"><input type="submit" value="Sen Message"></div>
       </form>
 
     </div>
@@ -905,6 +905,30 @@
   <script src="assets/js/main.js"></script>
   <script src="assets/js/particles.min.js"></script>
   <script src="assets/js/app.js"></script>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // https://dashboard.emailjs.com/admin/integration
+            emailjs.init("user_zRDsQ7tczBa8fDRlCRYau");
+        })();
+    </script>
+    <script type="text/javascript">
+        window.onload = function() {
+            document.getElementById('contact-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                // generate a five digit number for the contact_number variable
+                //this.contact_number.value = Math.random() * 100000 | 0;
+                // these IDs from the previous steps
+                emailjs.sendForm('contact_service', 'contact_form', this)
+                    .then(function() {
+                        console.log('SUCCESS!');
+                    }, function(error) {
+                        console.log('FAILED...', error);
+                    });
+            });
+        }
+    </script>
 
 </body>
 
